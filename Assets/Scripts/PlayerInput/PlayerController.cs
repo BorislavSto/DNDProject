@@ -12,14 +12,14 @@ public class PlayerController : MonoBehaviour
     #region Setup
     private void Awake()
     {
-        EventHandler.OnMoveInput += Movement;
-        EventHandler.OnLookInput += Looking;
+        InputEventHandler.OnMoveInput += Movement;
+        InputEventHandler.OnLookInput += Looking;
     }
 
     private void OnDestroy()
     {
-        EventHandler.OnMoveInput -= Movement;
-        EventHandler.OnLookInput -= Looking;
+        InputEventHandler.OnMoveInput -= Movement;
+        InputEventHandler.OnLookInput -= Looking;
     }
     #endregion
 

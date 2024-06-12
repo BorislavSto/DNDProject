@@ -6,12 +6,12 @@ public class InteractTriggerArea : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            EventHandler.InvokeOnPlayerInInteractZone(true);
+            InputEventHandler.InvokeOnPlayerInInteractZone(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-            EventHandler.InvokeOnPlayerInInteractZone(false);
+            InputEventHandler.InvokeOnPlayerInInteractZone(false);
     }
 }

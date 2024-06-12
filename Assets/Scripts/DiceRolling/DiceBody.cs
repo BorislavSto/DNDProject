@@ -101,22 +101,22 @@ public class DiceBody : MonoBehaviour
         return new Vector3(0, rollResult * 18, 0); // This is a placeholder
     }
 
-    private void AlignToFace(int sides, int rollResult)
-    {
-        Vector3 targetUp = Vector3.zero;
-        switch (sides)
-        {
-            case 4:
-                targetUp = GetD4UpVector(rollResult);
-                break;
-            case 6:
-                targetUp = GetD6UpVector(rollResult);
-                break;
-            case 20:
-                targetUp = GetD20UpVector(rollResult);
-                break;
-        }
-        Quaternion targetRotation = Quaternion.LookRotation(transform.forward, targetUp);
-        transform.rotation = targetRotation;
-    }
+    //private void AlignToFace(int sides, int rollResult)
+    //{
+    //    Vector3 targetUp = Vector3.zero;
+    //    switch (sides)
+    //    {
+    //        case 4:
+    //            targetUp = GetD4UpVector(rollResult);
+    //            break;
+    //        case 6:
+    //            targetUp = GetD6UpVector(rollResult);
+    //            break;
+    //        case 20:
+    //            targetUp = GetD20UpVector(rollResult);
+    //            break;
+    //    }
+    //    Quaternion targetRotation = Quaternion.LookRotation(transform.forward, targetUp);
+    //    transform.rotation = targetRotation;
+    //}
 }

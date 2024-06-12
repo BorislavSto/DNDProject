@@ -21,14 +21,14 @@ public class Dice : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.OnInteractInput += Roll;
-        EventHandler.OnPlayerInInteractZone += ctx => inZone = ctx;  //// TODO : add block from spamming dice rolling
+        InputEventHandler.OnInteractInput += Roll;
+        InputEventHandler.OnPlayerInInteractZone += ctx => inZone = ctx;  //// TODO : add block from spamming dice rolling
     }
 
     private void OnDestroy()
     {
-        EventHandler.OnInteractInput -= Roll;
-        EventHandler.OnPlayerInInteractZone -= ctx => inZone = ctx;
+        InputEventHandler.OnInteractInput -= Roll;
+        InputEventHandler.OnPlayerInInteractZone -= ctx => inZone = ctx;
     }
 
     public void Roll() // could add modifiers here but i think it should happen wherever this is called

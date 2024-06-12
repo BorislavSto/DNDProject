@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public static class EventHandler
+public static class InputEventHandler
 {
     public static event Action OnInteractInput;
     public static event Action<Vector3> OnMoveInput;

@@ -35,15 +35,15 @@ public class MyPlayerInput : MonoBehaviour
     private void Update()
     {
         if (moveInput != Vector3.zero)
-            EventHandler.InvokeOnMoveInput(moveInput);
+            InputEventHandler.InvokeOnMoveInput(moveInput);
 
         if (lookInput != Vector3.zero)
-            EventHandler.InvokeOnLookInput(lookInput);
+            InputEventHandler.InvokeOnLookInput(lookInput);
     }
 
     public void OnPlayerInputInteract(InputAction.CallbackContext context)
     {
-        EventHandler.InvokeOnAnyInput();
+        InputEventHandler.InvokeOnAnyInput();
     }
 
     public void OnPlayerInputMove(InputAction.CallbackContext context)
