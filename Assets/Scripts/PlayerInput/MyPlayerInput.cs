@@ -18,6 +18,8 @@ public class MyPlayerInput : MonoBehaviour
         inputActions.Player.Look.performed += OnPlayerInputLook;
         inputActions.Player.Look.canceled += OnPlayerInputLook;
         inputActions.Player.Interact.started += OnPlayerInputInteract;
+        inputActions.Player.Attack.performed += OnPlayerInputLeftClick;
+        inputActions.Player.Attack.canceled += OnPlayerInputLeftClick;
     }
 
     private void OnDisable()
@@ -27,6 +29,8 @@ public class MyPlayerInput : MonoBehaviour
         inputActions.Player.Look.performed -= OnPlayerInputLook;
         inputActions.Player.Look.canceled -= OnPlayerInputLook;
         inputActions.Player.Interact.started -= OnPlayerInputInteract;
+        inputActions.Player.Attack.performed -= OnPlayerInputLeftClick;
+        inputActions.Player.Attack.canceled -= OnPlayerInputLeftClick;
 
         inputActions.Disable();
         Debug.Log("Input Deactivated");
@@ -56,5 +60,10 @@ public class MyPlayerInput : MonoBehaviour
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
         lookInput = new Vector3(-inputVector.y, -inputVector.x, 0);
+    }
+
+    private void OnPlayerInputLeftClick(InputAction.CallbackContext context)
+    {
+        InputEventHandler.InvokeOnPlayerLeftClick(context.ReadValue<bool>());
     }
 }
