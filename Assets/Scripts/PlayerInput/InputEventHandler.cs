@@ -7,7 +7,7 @@ public static class InputEventHandler
     public static event Action<Vector3> OnMoveInput;
     public static event Action<Vector3> OnLookInput;
     public static event Action<bool> OnPlayerInInteractZone;
-    public static event Action<bool> OnPlayerLeftClick;
+    public static event Action OnPlayerLeftClick;
 
     public static void InvokeOnAnyInput()
     {
@@ -29,8 +29,8 @@ public static class InputEventHandler
         OnPlayerInInteractZone?.Invoke(value);
     }
 
-    public static void InvokeOnPlayerLeftClick(bool value)
+    public static void InvokeOnPlayerLeftClick()
     {
-        OnPlayerLeftClick?.Invoke(value);
+        OnPlayerLeftClick?.Invoke();
     }
 }

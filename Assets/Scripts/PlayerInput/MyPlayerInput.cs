@@ -19,7 +19,6 @@ public class MyPlayerInput : MonoBehaviour
         inputActions.Player.Look.canceled += OnPlayerInputLook;
         inputActions.Player.Interact.started += OnPlayerInputInteract;
         inputActions.Player.Attack.performed += OnPlayerInputLeftClick;
-        inputActions.Player.Attack.canceled += OnPlayerInputLeftClick;
     }
 
     private void OnDisable()
@@ -30,7 +29,6 @@ public class MyPlayerInput : MonoBehaviour
         inputActions.Player.Look.canceled -= OnPlayerInputLook;
         inputActions.Player.Interact.started -= OnPlayerInputInteract;
         inputActions.Player.Attack.performed -= OnPlayerInputLeftClick;
-        inputActions.Player.Attack.canceled -= OnPlayerInputLeftClick;
 
         inputActions.Disable();
         Debug.Log("Input Deactivated");
@@ -64,6 +62,6 @@ public class MyPlayerInput : MonoBehaviour
 
     private void OnPlayerInputLeftClick(InputAction.CallbackContext context)
     {
-        InputEventHandler.InvokeOnPlayerLeftClick(context.ReadValue<bool>());
+        InputEventHandler.InvokeOnPlayerLeftClick();
     }
 }
