@@ -13,21 +13,45 @@ MonoBehaviour:
   m_Name: NewSavedMap
   m_EditorClassIdentifier: 
   placeTerrainKV:
+  - position: {x: -9, y: 0, z: -12}
+    value: 1
+  - position: {x: -9, y: 0, z: -15}
+    value: 1
+  - position: {x: -6, y: 0, z: -15}
+    value: 1
+  - position: {x: -6, y: 0, z: -12}
+    value: 1
   - position: {x: -3, y: 0, z: -12}
+    value: 1
+  - position: {x: -3, y: 0, z: -15}
+    value: 1
+  - position: {x: 0, y: 0, z: -12}
     value: 1
   - position: {x: 0, y: 0, z: -15}
     value: 1
+  - position: {x: 0, y: 0, z: -12}
+    value: 1
   - position: {x: 3, y: 0, z: -15}
+    value: 1
+  - position: {x: 3, y: 0, z: -12}
+    value: 1
+  - position: {x: 6, y: 0, z: -12}
     value: 1
   - position: {x: 6, y: 0, z: -15}
     value: 1
-  - position: {x: 9, y: 0, z: -12}
+  - position: {x: -6, y: 0, z: -18}
     value: 1
-  - position: {x: 0, y: 0, z: -3}
+  - position: {x: -6, y: 0, z: -21}
     value: 1
-  - position: {x: 6, y: 0, z: -3}
+  - position: {x: -3, y: 0, z: -21}
     value: 1
-  - position: {x: 3, y: 0, z: -9}
+  - position: {x: 0, y: 0, z: -21}
     value: 1
-  - position: {x: -15, y: 0, z: -24}
+  - position: {x: 3, y: 0, z: -21}
+    value: 1
+  - position: {x: 3, y: 0, z: -18}
+    value: 1
+  - position: {x: -6, y: 0, z: -3}
+    value: 1
+  - position: {x: 3, y: 0, z: -3}
     value: 1
