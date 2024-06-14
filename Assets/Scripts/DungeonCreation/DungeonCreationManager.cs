@@ -13,10 +13,10 @@ public class DungeonCreationManager : MonoBehaviour
     }
 
     [SerializeField] private List<Vector3IntWithInt> placeTerrainKV = new(); // TODO: should save structs/classes which hold more data than 
-    [SerializeField] private SavedMap saved;
     [SerializeField] private List<SpawnableObject> terrainTypes;
     [SerializeField] private List<SpawnableObject> objectTypes;
     [SerializeField] private List<SpawnableObject> itemTypes;
+    [SerializeField] private SavedMap saved;
 
     public GameObject selectedPrefab;
 
@@ -113,11 +113,4 @@ public class DungeonCreationManager : MonoBehaviour
             Instantiate(terrainTypes[0].prefab, kv.position, Quaternion.identity);
         }
     }
-}
-
-public enum Mode
-{
-    Terrain,
-    Object,
-    Item,
 }

@@ -10,7 +10,6 @@ public class DungeonCreationPlayerInput : MonoBehaviour
 
     [SerializeField] private GameObject previewObjectTest;
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] private GameObject TESTETSE;
     [SerializeField] private DungeonCreationManager creationManager;
 
     private Vector3 previewVectorCache;
@@ -56,12 +55,6 @@ public class DungeonCreationPlayerInput : MonoBehaviour
         Debug.LogWarning("try to spawn?");
         if (IsPointerOverUI() || !IsMouseInGameWindow() || !CursorManager.Instance.mouseFocus)
             return;
-
-        //Vector3 spawnVector = previewVectorCache + new Vector3(0, 2, 0);
-        //Instantiate(TESTETSE, SetTerrainTransform(spawnVector), Quaternion.identity);
-
-        //creationManager.placeTerrainKV.Add(new Vector3IntWithInt(SetTerrainTransform(spawnVector), 1)); if (IsPointerOverUI() || !IsMouseInGameWindow() || !CursorManager.Instance.mouseFocus)
-        //    return;
 
         Vector3 spawnVector = previewVectorCache + new Vector3(0, 2, 0);
         GameObject selectedPrefab = creationManager.selectedPrefab;

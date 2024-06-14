@@ -20,6 +20,10 @@ public class DropdownController : MonoBehaviour
         terrainDropdown.gameObject.SetActive(false);
         objectDropdown.gameObject.SetActive(false);
         itemDropdown.gameObject.SetActive(false);
+
+        terrainDropdown.onValueChanged.AddListener(OnTerrainDropdownValueChanged);
+        objectDropdown.onValueChanged.AddListener(OnObjectDropdownValueChanged);
+        itemDropdown.onValueChanged.AddListener(OnItemDropdownValueChanged);
     }
 
     public void OnButtonClick(string mode)
@@ -58,21 +62,21 @@ public class DropdownController : MonoBehaviour
         }
     }
 
-    public void OnDropdownValueChanged(int index)
+    public void OnTerrainDropdownValueChanged(int index)
     {
-        string selectedName = "";
-        switch (creationManager.currentMode)
-        {
-            case Mode.Terrain:
-                selectedName = terrainDropdown.options[index].text;
-                break;
-            case Mode.Object:
-                selectedName = objectDropdown.options[index].text;
-                break;
-            case Mode.Item:
-                selectedName = itemDropdown.options[index].text;
-                break;
-        }
+        string selectedName = terrainDropdown.options[index].text;
+        creationManager.SetSelectedPrefab(selectedName);
+    }
+
+    public void OnObjectDropdownValueChanged(int index)
+    {
+        string selectedName = objectDropdown.options[index].text;
+        creationManager.SetSelectedPrefab(selectedName);
+    }
+
+    public void OnItemDropdownValueChanged(int index)
+    {
+        string selectedName = itemDropdown.options[index].text;
         creationManager.SetSelectedPrefab(selectedName);
     }
 

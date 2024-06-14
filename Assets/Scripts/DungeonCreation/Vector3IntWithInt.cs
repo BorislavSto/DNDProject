@@ -12,3 +12,13 @@ public struct Vector3IntWithInt
         this.value = value;
     }
 }
+
+
+[System.Serializable]
+public struct DungeonGenBaseObject
+{
+    // public (enum)Type Terrain?
+    public GameObject ObjectPrefab;
+    public Transform ObjectPos;
+    //public
+}
