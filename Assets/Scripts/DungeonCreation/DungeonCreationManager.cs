@@ -3,24 +3,17 @@ using UnityEngine;
 
 public class DungeonCreationManager : MonoBehaviour
 {
+    private const int TERRAIN_SIZE = 3;
+
     public static DungeonCreationManager Instance { get; private set; }
 
-    [System.Serializable]
-    private struct SpawnableObject
-    {
-        public string name;
-        public GameObject prefab;
-    }
+    [SerializeField] public Mode currentMode; // TODO FIX accecibility
+    [SerializeField] private List<DungeonGenBaseObject> terrainTypes;
+    [SerializeField] private List<DungeonGenBaseObject> objectTypes;
+    [SerializeField] private List<DungeonGenBaseObject> itemTypes;
 
-    [SerializeField] private List<Vector3IntWithInt> placeTerrainKV = new(); // TODO: should save structs/classes which hold more data than 
-    [SerializeField] private List<SpawnableObject> terrainTypes;
-    [SerializeField] private List<SpawnableObject> objectTypes;
-    [SerializeField] private List<SpawnableObject> itemTypes;
-    [SerializeField] private SavedMap saved;
-
+    public DungeonGenBaseObject selectedObject;
     public GameObject selectedPrefab;
-
-    public Mode currentMode;
 
     void Awake()
     {
@@ -28,6 +21,13 @@ public class DungeonCreationManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        InputEventHandler.OnPlayerLeftClick += DungeonCreatorInputLeftClick;
+    }
+
+    private void OnDestroy()
+    {
+        InputEventHandler.OnPlayerLeftClick -= DungeonCreatorInputLeftClick;
     }
 
     public List<string> GetNamesForCurrentMode()
@@ -60,57 +60,122 @@ public class DungeonCreationManager : MonoBehaviour
         }
     }
 
+    public DungeonGenBaseObject GetObjectByName(string name)
+    {
+        switch (currentMode)
+        {
+            case Mode.Terrain:
+                return GetObjectByName(terrainTypes, name);
+            case Mode.Object:
+                return GetObjectByName(objectTypes, name);
+            case Mode.Item:
+                return GetObjectByName(itemTypes, name);
+            default:
+                return null;
+        }
+    }
+
     public void SetSelectedPrefab(string name)
     {
         selectedPrefab = GetPrefabByName(name);
+        selectedObject = GetObjectByName(name);
     }
 
-    //public void InstantiateObject()
-    //{
-    //    Vector3 spawnVector = previewVectorCache + new Vector3(0, 2, 0);
-    //    Instantiate(TESTETSE, SetTerrainTransform(spawnVector), Quaternion.identity);
+    public void SetSelectedObject(DungeonGenBaseObject genBaseObject)
+    {
+        selectedObject = genBaseObject;
+    }
 
-    //    creationManager.placeTerrainKV.Add(new Vector3IntWithInt(SetTerrainTransform(spawnVector), 1));
-    //}
-
-    private List<string> GetNames(List<SpawnableObject> objects)
+    private List<string> GetNames(List<DungeonGenBaseObject> objects)
     {
         List<string> names = new List<string>();
-        foreach (var obj in objects)
+        foreach (DungeonGenBaseObject obj in objects)
         {
-            names.Add(obj.name);
+            names.Add(obj.ObjectName);
         }
         return names;
     }
 
-    private GameObject GetPrefabByName(List<SpawnableObject> objects, string name)
+    private GameObject GetPrefabByName(List<DungeonGenBaseObject> objects, string name)
     {
-        foreach (var obj in objects)
+        foreach (DungeonGenBaseObject obj in objects)
         {
-            if (obj.name == name)
+            if (obj.ObjectName == name)
             {
-                return obj.prefab;
+                return obj.ObjectPrefab;
             }
         }
         return null;
     }
 
-    public void BtnSaveMap() // make a scriptable object with the data
+    private DungeonGenBaseObject GetObjectByName(List<DungeonGenBaseObject> objects, string name)
     {
-        SavedMap savedMap = ScriptableObject.CreateInstance<SavedMap>();
-        savedMap.placeTerrainKV = placeTerrainKV;
-
-        string assetPath = "Assets/SavedMaps/NewSavedMap.asset";
-        UnityEditor.AssetDatabase.CreateAsset(savedMap, assetPath);
-        UnityEditor.AssetDatabase.SaveAssets();
+        foreach (DungeonGenBaseObject obj in objects)
+        {
+            if (obj.ObjectName == name)
+            {
+                return obj;
+            }
+        }
+        return null;
     }
 
-    public void BtnLoadMap()
+    private void DungeonCreatorInputLeftClick()
     {
-        foreach (Vector3IntWithInt kv in saved.placeTerrainKV)
+        Debug.LogWarning("try to spawn?");
+        if (DungeonCreationPlayerInput.Instance.IsPointerOverUI() || !DungeonCreationPlayerInput.Instance.IsMouseInGameWindow() || !CursorManager.Instance.mouseFocus)
+            return;
+
+        Vector3 spawnVector = DungeonCreationPlayerInput.Instance.previewVectorCache + new Vector3(0, 2, 0);
+
+        Debug.LogWarning("Spawningsmth?" + selectedPrefab);
+        if (selectedPrefab != null)
         {
-            Debug.LogWarning("spawning ");
-            Instantiate(terrainTypes[0].prefab, kv.position, Quaternion.identity);
+            switch (currentMode)
+            {
+                case Mode.Terrain:
+                    PlaceTerrain(spawnVector, selectedPrefab);
+                    break;
+                case Mode.Object:
+                    PlaceObject(spawnVector, selectedPrefab);
+                    break;
+                case Mode.Item:
+                    PlaceItem(spawnVector, selectedPrefab);
+                    break;
+                default:
+                    Debug.LogError("Invalid mode!");
+                    break;
+            }
         }
+    }
+
+    private void PlaceTerrain(Vector3 position, GameObject prefab)
+    {
+        Vector3 terrainPosition = SetTerrainTransform(position);
+        Instantiate(prefab, terrainPosition, Quaternion.identity);
+        //creationManager.placeTerrainKV.Add(new Vector3IntWithInt(SetTerrainTransform(terrainPosition), 1));
+    }
+
+    private void PlaceObject(Vector3 position, GameObject prefab)
+    {
+        Instantiate(prefab, position, Quaternion.identity);
+        // Optionally add to a different collection if needed
+    }
+
+    private void PlaceItem(Vector3 position, GameObject prefab)
+    {
+        Instantiate(prefab, position, Quaternion.identity);
+        // Optionally add to a different collection if needed
+    }
+
+    private Vector3 SetTerrainTransform(Vector3 vector3)
+    {
+        float x = Mathf.Floor(vector3.x / TERRAIN_SIZE) * TERRAIN_SIZE;
+        float z = Mathf.Floor(vector3.z / TERRAIN_SIZE) * TERRAIN_SIZE;
+
+        x = Mathf.Floor(x / TERRAIN_SIZE) * TERRAIN_SIZE;
+        z = Mathf.Floor(z / TERRAIN_SIZE) * TERRAIN_SIZE;
+
+        return new Vector3(x, 0, z);
     }
 }

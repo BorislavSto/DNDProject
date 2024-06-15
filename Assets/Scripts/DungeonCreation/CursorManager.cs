@@ -7,7 +7,6 @@ public class CursorManager : MonoBehaviour
 
     void Awake()
     {
-        // Ensure there's only one instance of CursorManager
         if (Instance == null)
             Instance = this;
         else

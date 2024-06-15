@@ -1776,8 +1776,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  TESTETSE: {fileID: 4571025569441571765, guid: 2eb83507eeebb4946b498516092e2c0f, type: 3}
   creationManager: {fileID: 1384936046}
+  previewVectorCache: {x: 0, y: 0, z: 0}
 --- !u!1 &565666629
 GameObject:
   m_ObjectHideFlags: 0
@@ -2974,19 +2974,7 @@ MonoBehaviour:
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1348558835}
-        m_TargetAssemblyTypeName: DropdownController, Assembly-CSharp
-        m_MethodName: OnDropdownValueChanged
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1085197978
 MonoBehaviour:
@@ -3536,17 +3524,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7fe84376814ea24092e1eea8c4241e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeTerrainKV: []
-  saved: {fileID: 11400000, guid: c6a8263bdce0cbd49b86b5d9f18434b7, type: 2}
+  currentMode: 0
   terrainTypes:
-  - name: Dirt
-    prefab: {fileID: 4571025569441571765, guid: 2eb83507eeebb4946b498516092e2c0f, type: 3}
-  - name: Grass
-    prefab: {fileID: 4571025569441571765, guid: 9649051f1c7be924b8e2ee0b95442c9f, type: 3}
+  - {fileID: 11400000, guid: 312932f0c02d08a4e8155161213ba1fa, type: 2}
+  - {fileID: 11400000, guid: 5824ce799082c054fbfb80e6179c1b85, type: 2}
   objectTypes: []
   itemTypes: []
+  selectedObject: {fileID: 11400000, guid: 312932f0c02d08a4e8155161213ba1fa, type: 2}
   selectedPrefab: {fileID: 0}
-  currentMode: 0
 --- !u!1 &1477406384
 GameObject:
   m_ObjectHideFlags: 0

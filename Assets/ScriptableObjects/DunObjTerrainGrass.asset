@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4a1ac07556aec4996d12fd1d689a49, type: 3}
+  m_Name: DunObjTerrainGrass
+  m_EditorClassIdentifier: 
+  ObjectType: 0
+  ObjectName: Grass
+  ObjectPrefab: {fileID: 4571025569441571765, guid: 9649051f1c7be924b8e2ee0b95442c9f, type: 3}
+  ObjectPos: {fileID: 0}
