@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DungeonCreationManager : MonoBehaviour
@@ -12,6 +13,8 @@ public class DungeonCreationManager : MonoBehaviour
     [SerializeField] private List<DungeonGenBaseObject> objectTypes;
     [SerializeField] private List<DungeonGenBaseObject> itemTypes;
 
+    public event Action<Mode> OnModeChanged;
+
     public DungeonGenBaseObject selectedObject;
     public GameObject selectedPrefab;
 
@@ -22,12 +25,14 @@ public class DungeonCreationManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        InputEventHandler.OnPlayerLeftClick += DungeonCreatorInputLeftClick;
+        InputEventHandler.OnPlayerLeftClickUI += DungeonCreatorInputLeftClick;
+        InputEventHandler.OnPlayerEscapeUI += DungeonCreatorEscape;
     }
 
     private void OnDestroy()
     {
-        InputEventHandler.OnPlayerLeftClick -= DungeonCreatorInputLeftClick;
+        InputEventHandler.OnPlayerLeftClickUI -= DungeonCreatorInputLeftClick;
+        InputEventHandler.OnPlayerEscapeUI -= DungeonCreatorEscape;
     }
 
     public List<string> GetNamesForCurrentMode()
@@ -81,6 +86,19 @@ public class DungeonCreationManager : MonoBehaviour
         selectedObject = GetObjectByName(name);
     }
 
+    public void SetCurrentMode(string mode)
+    {
+        if (Enum.TryParse(mode, true, out Mode result))
+        {
+            currentMode = result;
+            OnModeChanged?.Invoke(result);
+        }
+        else
+        {
+            Debug.LogError($"Invalid mode: {mode}");
+        }
+    }
+
     public void SetSelectedObject(DungeonGenBaseObject genBaseObject)
     {
         selectedObject = genBaseObject;
@@ -126,7 +144,7 @@ public class DungeonCreationManager : MonoBehaviour
         if (DungeonCreationPlayerInput.Instance.IsPointerOverUI() || !DungeonCreationPlayerInput.Instance.IsMouseInGameWindow() || !CursorManager.Instance.mouseFocus)
             return;
 
-        Vector3 spawnVector = DungeonCreationPlayerInput.Instance.previewVectorCache + new Vector3(0, 2, 0);
+        Vector3 spawnVector = DungeonCreationPlayerInput.Instance.previewVectorCache;// + new Vector3(0, 2, 0);
 
         Debug.LogWarning("Spawningsmth?" + selectedPrefab);
         if (selectedPrefab != null)
@@ -147,6 +165,11 @@ public class DungeonCreationManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void DungeonCreatorEscape()
+    {
+        SetCurrentMode("None");
     }
 
     private void PlaceTerrain(Vector3 position, GameObject prefab)

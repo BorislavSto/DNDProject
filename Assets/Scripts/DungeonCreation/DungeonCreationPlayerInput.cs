@@ -30,18 +30,35 @@ public class DungeonCreationPlayerInput : MonoBehaviour
     {
         Vector3 vector3 = GetMouseWorldPosition();
 
+        if (previewVectorCache == vector3 && creationManager.currentMode == Mode.None)
+            PeviewObject(vector3, previewObjectTest);
+
         if (previewVectorCache == vector3 || IsPointerOverUI() || !IsMouseInGameWindow() || !CursorManager.Instance.mouseFocus)
             return;
 
         previewVectorCache = vector3;
-        Debug.Log(vector3);
 
-        if (creationManager.selectedObject == null)
-            PeviewObject(SetTerrainTransform(vector3), previewObjectTest);
-        else
-            PeviewObject(SetTerrainTransform(vector3), creationManager.selectedObject);
+        switch (creationManager.currentMode)
+        {
+            case Mode.None:
+                PeviewObject(vector3, previewObjectTest);
+                break;
+            case Mode.Terrain:
+                PeviewObject(SetTerrainTransform(vector3), creationManager.selectedObject);
+                break;
 
-        //previewObjectTest.transform.position = SetTerrainTransform(vector3);
+            case Mode.Object:
+                PeviewObject(vector3, creationManager.selectedObject);
+                break;
+
+            case Mode.Item:
+                PeviewObject(vector3, creationManager.selectedObject);
+                break;
+
+            default:
+                Debug.LogError("Error in Creation Manager, Mode somehow out of range");
+                break;
+        }
     }
 
     public bool IsPointerOverUI()
@@ -56,19 +73,24 @@ public class DungeonCreationPlayerInput : MonoBehaviour
                mousePosition.y >= 0 && mousePosition.y <= Screen.height;
     }
 
-    private void PeviewObject(Vector3 pos, DungeonGenBaseObject gameObject) // TODO : bug? is preview obj null, no its not
+    private void PeviewObject(Vector3 pos, DungeonGenBaseObject gameObject)
     {
-        GameObject previewObject = gameObject.ObjectPrefab; /// all bugged to shit lmao
-
-        if (previewObject.activeSelf) ///
+        GameObject previewObject = gameObject.ObjectPrefab;
+        Debug.LogWarning(gameObject);
+        if (previewGameObject == null || !previewGameObject.activeSelf)
         {
-            Instantiate(previewObject, pos, Quaternion.identity); ///
-            previewGameObject = previewObject;
+            Debug.LogWarning(gameObject.ObjectName);
+            previewGameObject = Instantiate(previewObject, pos, Quaternion.identity);
         }
         else
         {
-            previewGameObject = null;
-            Destroy(previewObject);
+            if (previewGameObject != previewObject)
+            {
+                DestroyImmediate(previewGameObject, true);
+                previewGameObject = null;
+                PeviewObject(pos, gameObject);
+            }
+            previewGameObject.transform.position = pos;
         }
     }
 

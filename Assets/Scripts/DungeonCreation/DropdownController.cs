@@ -10,6 +10,16 @@ public class DropdownController : MonoBehaviour
 
     public DungeonCreationManager creationManager;
 
+    private void Awake()
+    {
+        creationManager.OnModeChanged += CreationManager_OnModeChanged;
+    }
+
+    private void OnDestroy()
+    {
+        creationManager.OnModeChanged -= CreationManager_OnModeChanged;
+    }
+
     void Start()
     {
         // Initialize dropdowns with empty options and hide them
@@ -28,8 +38,9 @@ public class DropdownController : MonoBehaviour
 
     public void OnButtonClick(string mode)
     {
+        Debug.LogWarning(mode);
         // Set the current mode in the creation manager
-        creationManager.currentMode = (Mode)System.Enum.Parse(typeof(Mode), mode);
+        creationManager.SetCurrentMode(mode);
 
         // Hide all dropdowns first
         terrainDropdown.gameObject.SetActive(false);
@@ -47,18 +58,31 @@ public class DropdownController : MonoBehaviour
             case "Terrain":
                 PopulateDropdown(terrainDropdown, creationManager.GetNamesForCurrentMode());
                 terrainDropdown.gameObject.SetActive(true);
+                OnTerrainDropdownValueChanged(0);
                 break;
             case "Object":
                 PopulateDropdown(objectDropdown, creationManager.GetNamesForCurrentMode());
                 objectDropdown.gameObject.SetActive(true);
+                OnObjectDropdownValueChanged(0);
                 break;
             case "Item":
                 PopulateDropdown(itemDropdown, creationManager.GetNamesForCurrentMode());
                 itemDropdown.gameObject.SetActive(true);
+                OnItemDropdownValueChanged(0);
                 break;
             default:
                 Debug.LogError("Invalid mode!");
                 break;
+        }
+    }
+
+    private void CreationManager_OnModeChanged(Mode mode)
+    {
+        if (mode == Mode.None)
+        {
+            terrainDropdown.gameObject.SetActive(false);
+            objectDropdown.gameObject.SetActive(false);
+            itemDropdown.gameObject.SetActive(false);
         }
     }
 
