@@ -15,4 +15,5 @@ MonoBehaviour:
   ObjectType: 0
   ObjectName: Dirt
   ObjectPrefab: {fileID: 4571025569441571765, guid: 2eb83507eeebb4946b498516092e2c0f, type: 3}
+  ObjectPrefabPreview: {fileID: 4571025569441571765, guid: 2eb83507eeebb4946b498516092e2c0f, type: 3}
   ObjectPos: {fileID: 0}

@@ -15,4 +15,5 @@ MonoBehaviour:
   ObjectType: 0
   ObjectName: Pointer
   ObjectPrefab: {fileID: 7190724848152537766, guid: 78645c542f0ae304e9992e231700e288, type: 3}
+  ObjectPrefabPreview: {fileID: 7190724848152537766, guid: 78645c542f0ae304e9992e231700e288, type: 3}
   ObjectPos: {fileID: 0}

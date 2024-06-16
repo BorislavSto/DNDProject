@@ -15,4 +15,5 @@ MonoBehaviour:
   ObjectType: 1
   ObjectName: Box
   ObjectPrefab: {fileID: 5324169008869692579, guid: d2dbbedbfef1f334488d3d44a5c9236b, type: 3}
+  ObjectPrefabPreview: {fileID: 5324169008869692579, guid: 0941134c48428b744bf13d4b8fe543ec, type: 3}
   ObjectPos: {fileID: 0}

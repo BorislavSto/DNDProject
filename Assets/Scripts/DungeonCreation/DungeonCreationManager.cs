@@ -12,6 +12,7 @@ public class DungeonCreationManager : MonoBehaviour
     [SerializeField] private List<DungeonGenBaseObject> terrainTypes;
     [SerializeField] private List<DungeonGenBaseObject> objectTypes;
     [SerializeField] private List<DungeonGenBaseObject> itemTypes;
+    [SerializeField] public LayerMask layerMask;
 
     public event Action<Mode> OnModeChanged;
 
@@ -86,17 +87,10 @@ public class DungeonCreationManager : MonoBehaviour
         selectedObject = GetObjectByName(name);
     }
 
-    public void SetCurrentMode(string mode)
+    public void SetCurrentMode(Mode mode)
     {
-        if (Enum.TryParse(mode, true, out Mode result))
-        {
-            currentMode = result;
-            OnModeChanged?.Invoke(result);
-        }
-        else
-        {
-            Debug.LogError($"Invalid mode: {mode}");
-        }
+        currentMode = mode;
+        OnModeChanged?.Invoke(mode);
     }
 
     public void SetSelectedObject(DungeonGenBaseObject genBaseObject)
@@ -169,7 +163,7 @@ public class DungeonCreationManager : MonoBehaviour
 
     private void DungeonCreatorEscape()
     {
-        SetCurrentMode("None");
+        SetCurrentMode(Mode.None);
     }
 
     private void PlaceTerrain(Vector3 position, GameObject prefab)
@@ -181,14 +175,36 @@ public class DungeonCreationManager : MonoBehaviour
 
     private void PlaceObject(Vector3 position, GameObject prefab)
     {
-        Instantiate(prefab, position, Quaternion.identity);
+        Vector3 readyPos = GetSpawnPositionAboveGround(position, prefab);
+        Instantiate(prefab, readyPos, Quaternion.identity);
         // Optionally add to a different collection if needed
     }
 
     private void PlaceItem(Vector3 position, GameObject prefab)
     {
-        Instantiate(prefab, position, Quaternion.identity);
+        Vector3 readyPos = GetSpawnPositionAboveGround(position, prefab);
+        Instantiate(prefab, readyPos, Quaternion.identity);
         // Optionally add to a different collection if needed
+    }
+
+    private Vector3 GetSpawnPositionAboveGround(Vector3 position, GameObject selectedPrefab)
+    {
+        RaycastHit hit;
+        Vector3 rayStart = position + Vector3.up * selectedPrefab.GetComponent<Collider>().transform.localScale.y; // Start the ray above the position
+        int layerMask = (1 << 6) | (1 << 7);
+
+        if (Physics.Raycast(rayStart, Vector3.down, out hit, Mathf.Infinity, layerMask))
+        {
+            Vector3 i = new Vector3(0, selectedPrefab.GetComponent<Collider>().transform.localScale.y / 2, 0);
+            Vector3 vector3 = hit.point + i;
+            return vector3;
+        }
+        else
+        {
+            Debug.LogError("hit layermask" + hit.collider.gameObject.layer);
+        }
+
+        return rayStart;
     }
 
     private Vector3 SetTerrainTransform(Vector3 vector3)
@@ -199,6 +215,6 @@ public class DungeonCreationManager : MonoBehaviour
         x = Mathf.Floor(x / TERRAIN_SIZE) * TERRAIN_SIZE;
         z = Mathf.Floor(z / TERRAIN_SIZE) * TERRAIN_SIZE;
 
-        return new Vector3(x, 0, z);
+        return new Vector3(x, vector3.y, z);
     }
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   ObjectType: 1
   ObjectName: Ball
   ObjectPrefab: {fileID: 1536099368427975668, guid: 5ca7c3e8a8cf68e4a9b9d59c50661d94, type: 3}
+  ObjectPrefabPreview: {fileID: 1536099368427975668, guid: a1dd832915baa394e9fb7276a1234ba6, type: 3}
   ObjectPos: {fileID: 0}

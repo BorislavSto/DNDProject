@@ -15,4 +15,5 @@ MonoBehaviour:
   ObjectType: 0
   ObjectName: Sword
   ObjectPrefab: {fileID: 8621538170031633762, guid: 4caae8b20d4cf834bb7da5bd9ec1da94, type: 3}
+  ObjectPrefabPreview: {fileID: 8621538170031633762, guid: b6e819ddc75476d4ebd96c7419268bea, type: 3}
   ObjectPos: {fileID: 0}

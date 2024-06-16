@@ -10,6 +10,7 @@ public class DungeonCreationPlayerInput : MonoBehaviour
 
     [SerializeField] private DungeonGenBaseObject previewObjectTest;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask mask;
     [SerializeField] private DungeonCreationManager creationManager;
 
     public Vector3 previewVectorCache; // TODO FIX
@@ -43,6 +44,7 @@ public class DungeonCreationPlayerInput : MonoBehaviour
             case Mode.None:
                 PeviewObject(vector3, previewObjectTest);
                 break;
+
             case Mode.Terrain:
                 PeviewObject(SetTerrainTransform(vector3), creationManager.selectedObject);
                 break;
@@ -75,12 +77,12 @@ public class DungeonCreationPlayerInput : MonoBehaviour
 
     private void PeviewObject(Vector3 pos, DungeonGenBaseObject gameObject)
     {
-        GameObject previewObject = gameObject.ObjectPrefab;
-        Debug.LogWarning(gameObject);
+        GameObject previewObject = gameObject.ObjectPrefabPreview;
+        Vector3 readyPos = GetSpawnPositionAboveGround(pos, previewObject);
+
         if (previewGameObject == null || !previewGameObject.activeSelf)
         {
-            Debug.LogWarning(gameObject.ObjectName);
-            previewGameObject = Instantiate(previewObject, pos, Quaternion.identity);
+            previewGameObject = Instantiate(previewObject, readyPos, Quaternion.identity);
         }
         else
         {
@@ -88,10 +90,30 @@ public class DungeonCreationPlayerInput : MonoBehaviour
             {
                 DestroyImmediate(previewGameObject, true);
                 previewGameObject = null;
-                PeviewObject(pos, gameObject);
+                PeviewObject(readyPos, gameObject);
             }
-            previewGameObject.transform.position = pos;
+            previewGameObject.transform.position = readyPos;
         }
+    }
+
+    private Vector3 GetSpawnPositionAboveGround(Vector3 position, GameObject selectedPrefab)
+    {
+        RaycastHit hit;
+        Vector3 rayStart = position + Vector3.up * selectedPrefab.GetComponent<Collider>().transform.localScale.y;
+        int layerMask = (1 << 6) | (1 << 7);
+
+        if (Physics.Raycast(rayStart, Vector3.down, out hit, Mathf.Infinity, layerMask))
+        {
+            Vector3 i = new Vector3(0, selectedPrefab.GetComponent<Collider>().transform.localScale.y / 2, 0);
+            Vector3 vector3 = hit.point + i;
+            return vector3;
+        }
+        else
+        {
+            Debug.LogError("hit layermask" + hit.collider.gameObject.layer);
+        }
+
+        return rayStart;
     }
 
     private Vector3 SetTerrainTransform(Vector3 vector3)
@@ -102,13 +124,14 @@ public class DungeonCreationPlayerInput : MonoBehaviour
         x = Mathf.Floor(x / TERRAIN_SIZE) * TERRAIN_SIZE;
         z = Mathf.Floor(z / TERRAIN_SIZE) * TERRAIN_SIZE;
 
-        return new Vector3(x, 0, z);
+        return new Vector3(x, vector3.y, z);
     }
 
     Vector3 GetMouseWorldPosition()
     {
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+        int mask2 = ~mask;
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask2))
         {
             return hit.point;
         }

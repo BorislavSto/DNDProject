@@ -15,4 +15,5 @@ MonoBehaviour:
   ObjectType: 0
   ObjectName: Potion
   ObjectPrefab: {fileID: 6645711261165954942, guid: 31b5c9379cd99b944be7bc1cd426158c, type: 3}
+  ObjectPrefabPreview: {fileID: 6645711261165954942, guid: 6fbc1cbbec751204d8fd12f0b4f1b52a, type: 3}
   ObjectPos: {fileID: 0}

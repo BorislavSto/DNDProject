@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -36,7 +37,20 @@ public class DropdownController : MonoBehaviour
         itemDropdown.onValueChanged.AddListener(OnItemDropdownValueChanged);
     }
 
+    // This method will be called by the button with a string parameter
     public void OnButtonClick(string mode)
+    {
+        if (Enum.TryParse(mode, true, out Mode parsedMode))
+        {
+            OnButtonClick(parsedMode);
+        }
+        else
+        {
+            Debug.LogError($"Invalid mode: {mode}");
+        }
+    }
+
+    public void OnButtonClick(Mode mode)
     {
         Debug.LogWarning(mode);
         // Set the current mode in the creation manager
@@ -55,17 +69,17 @@ public class DropdownController : MonoBehaviour
         // Determine which dropdown to populate and show based on the button pressed
         switch (mode)
         {
-            case "Terrain":
+            case Mode.Terrain:
                 PopulateDropdown(terrainDropdown, creationManager.GetNamesForCurrentMode());
                 terrainDropdown.gameObject.SetActive(true);
                 OnTerrainDropdownValueChanged(0);
                 break;
-            case "Object":
+            case Mode.Object:
                 PopulateDropdown(objectDropdown, creationManager.GetNamesForCurrentMode());
                 objectDropdown.gameObject.SetActive(true);
                 OnObjectDropdownValueChanged(0);
                 break;
-            case "Item":
+            case Mode.Item:
                 PopulateDropdown(itemDropdown, creationManager.GetNamesForCurrentMode());
                 itemDropdown.gameObject.SetActive(true);
                 OnItemDropdownValueChanged(0);

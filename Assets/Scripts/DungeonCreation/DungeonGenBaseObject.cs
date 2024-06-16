@@ -6,5 +6,6 @@ public class DungeonGenBaseObject : ScriptableObject
     public Mode ObjectType;
     public string ObjectName;
     public GameObject ObjectPrefab;
+    public GameObject ObjectPrefabPreview;
     public Transform ObjectPos;
 }

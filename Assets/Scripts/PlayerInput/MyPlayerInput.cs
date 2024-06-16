@@ -57,6 +57,7 @@ public class MyPlayerInput : MonoBehaviour
 
     private void ToggleUIInput(bool value)
     {
+        Debug.Log("toggle ui input" + value);
         if (value)
         {
             inputActions.UI.Click.performed += OnPlayerInputLeftClickUI;
@@ -88,7 +89,8 @@ public class MyPlayerInput : MonoBehaviour
 
     private void OnPlayerInputLeftClickUI(InputAction.CallbackContext context)
     {
-        InputEventHandler.InvokeOnPlayerLeftClickUI();
+        if (context.ReadValue<float>() == 1) // to prevent double clicking, performed seems to trigger on click down and click off
+            InputEventHandler.InvokeOnPlayerLeftClickUI();
     }
 
     private void OnPlayerInputEscapeUI(InputAction.CallbackContext context)
