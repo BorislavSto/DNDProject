@@ -13,20 +13,14 @@ public class MyPlayerInput : MonoBehaviour
         inputActions = new InputSystem_Actions();
         inputActions.Enable();
 
-        inputActions.Player.Move.performed += OnPlayerInputMove;
-        inputActions.Player.Move.canceled += OnPlayerInputMove;
-        inputActions.Player.Look.performed += OnPlayerInputLook;
-        inputActions.Player.Look.canceled += OnPlayerInputLook;
-        inputActions.Player.Interact.started += OnPlayerInputInteract;
+        TogglePlayerInput(true);
+        ToggleUIInput(true);
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Move.performed -= OnPlayerInputMove;
-        inputActions.Player.Move.canceled -= OnPlayerInputMove;
-        inputActions.Player.Look.performed -= OnPlayerInputLook;
-        inputActions.Player.Look.canceled -= OnPlayerInputLook;
-        inputActions.Player.Interact.started -= OnPlayerInputInteract;
+        TogglePlayerInput(false);
+        ToggleUIInput(false);
 
         inputActions.Disable();
         Debug.Log("Input Deactivated");
@@ -39,6 +33,41 @@ public class MyPlayerInput : MonoBehaviour
 
         if (lookInput != Vector3.zero)
             InputEventHandler.InvokeOnLookInput(lookInput);
+    }
+
+    private void TogglePlayerInput(bool value)
+    {
+        if (value)
+        {
+            inputActions.Player.Move.performed += OnPlayerInputMove;
+            inputActions.Player.Move.canceled += OnPlayerInputMove;
+            inputActions.Player.Look.performed += OnPlayerInputLook;
+            inputActions.Player.Look.canceled += OnPlayerInputLook;
+            inputActions.Player.Interact.started += OnPlayerInputInteract;
+        }
+        else
+        {
+            inputActions.Player.Move.performed -= OnPlayerInputMove;
+            inputActions.Player.Move.canceled -= OnPlayerInputMove;
+            inputActions.Player.Look.performed -= OnPlayerInputLook;
+            inputActions.Player.Look.canceled -= OnPlayerInputLook;
+            inputActions.Player.Interact.started -= OnPlayerInputInteract;
+        }
+    }
+
+    private void ToggleUIInput(bool value)
+    {
+        Debug.Log("toggle ui input" + value);
+        if (value)
+        {
+            inputActions.UI.Click.performed += OnPlayerInputLeftClickUI;
+            inputActions.UI.Escape.performed += OnPlayerInputEscapeUI;
+        }
+        else
+        {
+            inputActions.UI.Click.performed -= OnPlayerInputLeftClickUI;
+            inputActions.UI.Escape.performed -= OnPlayerInputEscapeUI;
+        }
     }
 
     public void OnPlayerInputInteract(InputAction.CallbackContext context)
@@ -56,5 +85,16 @@ public class MyPlayerInput : MonoBehaviour
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
         lookInput = new Vector3(-inputVector.y, -inputVector.x, 0);
+    }
+
+    private void OnPlayerInputLeftClickUI(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<float>() == 1) // to prevent double clicking, performed seems to trigger on click down and click off
+            InputEventHandler.InvokeOnPlayerLeftClickUI();
+    }
+
+    private void OnPlayerInputEscapeUI(InputAction.CallbackContext context)
+    {
+        InputEventHandler.InvokeOnPlayerEscapeUI();
     }
 }
