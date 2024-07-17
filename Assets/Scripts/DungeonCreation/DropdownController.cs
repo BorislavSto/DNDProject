@@ -41,13 +41,9 @@ public class DropdownController : MonoBehaviour
     public void OnButtonClick(string mode)
     {
         if (Enum.TryParse(mode, true, out Mode parsedMode))
-        {
             OnButtonClick(parsedMode);
-        }
         else
-        {
             Debug.LogError($"Invalid mode: {mode}");
-        }
     }
 
     public void OnButtonClick(Mode mode)

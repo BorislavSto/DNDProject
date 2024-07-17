@@ -81,9 +81,7 @@ public class DungeonCreationPlayerInput : MonoBehaviour
         Vector3 readyPos = GetSpawnPositionAboveGround(pos, previewObject);
 
         if (previewGameObject == null || !previewGameObject.activeSelf)
-        {
             previewGameObject = Instantiate(previewObject, readyPos, Quaternion.identity);
-        }
         else
         {
             if (previewGameObject != previewObject)
@@ -109,9 +107,7 @@ public class DungeonCreationPlayerInput : MonoBehaviour
             return vector3;
         }
         else
-        {
             Debug.LogError("hit layermask" + hit.collider.gameObject.layer);
-        }
 
         return rayStart;
     }
@@ -132,9 +128,8 @@ public class DungeonCreationPlayerInput : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         int mask2 = ~mask;
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, mask2))
-        {
             return hit.point;
-        }
+
         return Vector3.zero;
     }
 }

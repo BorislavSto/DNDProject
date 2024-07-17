@@ -102,9 +102,8 @@ public class DungeonCreationManager : MonoBehaviour
     {
         List<string> names = new List<string>();
         foreach (DungeonGenBaseObject obj in objects)
-        {
             names.Add(obj.ObjectName);
-        }
+        
         return names;
     }
 
@@ -113,9 +112,7 @@ public class DungeonCreationManager : MonoBehaviour
         foreach (DungeonGenBaseObject obj in objects)
         {
             if (obj.ObjectName == name)
-            {
                 return obj.ObjectPrefab;
-            }
         }
         return null;
     }
@@ -125,9 +122,7 @@ public class DungeonCreationManager : MonoBehaviour
         foreach (DungeonGenBaseObject obj in objects)
         {
             if (obj.ObjectName == name)
-            {
                 return obj;
-            }
         }
         return null;
     }
@@ -200,9 +195,7 @@ public class DungeonCreationManager : MonoBehaviour
             return vector3;
         }
         else
-        {
             Debug.LogError("hit layermask" + hit.collider.gameObject.layer);
-        }
 
         return rayStart;
     }
