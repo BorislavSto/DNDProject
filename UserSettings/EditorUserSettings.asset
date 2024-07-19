@@ -6,16 +6,22 @@ EditorUserSettings:
   serializedVersion: 4
   m_ConfigSettings:
     RecentlyUsedSceneGuid-0:
-      value: 5a08575f5207595a0f5d59741173094444164f7d7d2a23317c7a4465bbe1646d
+      value: 5757075707565e0d5a0c5e714820064415154f2b7a7970662f714536bab4326e
       flags: 0
     RecentlyUsedSceneGuid-1:
       value: 0602015356075d0b58590e7a12730a44134e4a7f742a74332c7a1f31b0b83669
       flags: 0
     RecentlyUsedSceneGuid-2:
-      value: 5757075707565e0d5a0c5e714820064415154f2b7a7970662f714536bab4326e
+      value: 5109025255515f5a585f5f71437b0b4412164d797b2d2267787a1962e4b46260
       flags: 0
     RecentlyUsedSceneGuid-3:
-      value: 5109025255515f5a585f5f71437b0b4412164d797b2d2267787a1962e4b46260
+      value: 5a08575f5207595a0f5d59741173094444164f7d7d2a23317c7a4465bbe1646d
+      flags: 0
+    RecentlyUsedSceneGuid-4:
+      value: 0608525f55505c0e0c5a5f2740270c44444f4178757822652f7e4b61e0e6606d
+      flags: 0
+    RecentlyUsedSceneGuid-5:
+      value: 0002035500050f0c5b5f5a26117b0e44474f4078797125327f281832e1b1673e
       flags: 0
     lightmappingBakingProfile:
       value: 51
@@ -37,5 +43,6 @@ EditorUserSettings:
   m_VCHierarchyOverlayIcons: 1
   m_VCOtherOverlayIcons: 1
   m_VCAllowAsyncUpdate: 1
+  m_VCScanLocalPackagesOnConnect: 1
   m_ArtifactGarbageCollection: 1
   m_CompressAssetsOnImport: 1
