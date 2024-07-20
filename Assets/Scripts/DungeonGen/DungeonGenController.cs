@@ -10,6 +10,8 @@ public class DungeonGenController : MonoBehaviour
         BinarySpacePartitioning,
         MazeGeneration,
         PerlinNoise,
+        Mine,
+        MineVisualized,
     }
 
     [SerializeField] private DungeonGenType type;
@@ -24,19 +26,13 @@ public class DungeonGenController : MonoBehaviour
         switch (type)
         {
             case DungeonGenType.RandomWalk:
-                OnGenerate?.Invoke(DungeonGenType.RandomWalk);
-                break;
             case DungeonGenType.CellularAutomata:
-                OnGenerate?.Invoke(DungeonGenType.CellularAutomata);
-                break;
             case DungeonGenType.BinarySpacePartitioning:
-                OnGenerate?.Invoke(DungeonGenType.BinarySpacePartitioning);
-                break;
             case DungeonGenType.MazeGeneration:
-                OnGenerate?.Invoke(DungeonGenType.MazeGeneration);
-                break;
             case DungeonGenType.PerlinNoise:
-                OnGenerate?.Invoke(DungeonGenType.PerlinNoise);
+            case DungeonGenType.Mine:
+            case DungeonGenType.MineVisualized:
+                OnGenerate?.Invoke(type);
                 break;
             default:
                 Debug.LogError("DungeonGenType Type not Implemented");

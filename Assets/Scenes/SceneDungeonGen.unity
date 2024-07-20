@@ -118,6 +118,62 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &95412060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 95412061}
+  - component: {fileID: 95412062}
+  m_Layer: 0
+  m_Name: TestDungeonGen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &95412061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95412060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 103.766075, y: 60.70734, z: -3.616159}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &95412062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95412060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a41f9d0d6328f742ab492b87014f46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonWidth: 50
+  dungeonHeight: 50
+  corridorLength: 100
+  corridorWidth: 2
+  rooms: 0
+  pathLeadsToExit: 0
+  maxRoomSize: {x: 3, y: 3}
+  minRoomSize: {x: 2, y: 2}
+  startPoint: {x: 0, y: 7}
+  floorPrefab: {fileID: 1396359394914441769, guid: 28d102928b0752d458f85e08e959a925, type: 3}
+  wallPrefab: {fileID: 7844016741128256601, guid: 9eda48ec47cddaf48b27c36e93e1058f, type: 3}
+  controller: {fileID: 255328863}
 --- !u!1 &180644024
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7a6808c6e7bb44da1dc75c4444a174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 5
   GenerateOnStart: 1
 --- !u!1 &410087039
 GameObject:
@@ -518,9 +574,115 @@ MonoBehaviour:
   width: 100
   height: 100
   fillProbability: 45
-  iterations: 1
+  iterations: 3
   floorPrefab: {fileID: 1396359394914441769, guid: 28d102928b0752d458f85e08e959a925, type: 3}
   wallPrefab: {fileID: 7844016741128256601, guid: 9eda48ec47cddaf48b27c36e93e1058f, type: 3}
+  controller: {fileID: 255328863}
+--- !u!1 &1266929007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1266929008}
+  - component: {fileID: 1266929009}
+  m_Layer: 0
+  m_Name: VisualizedTestGen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1266929008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266929007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.562543, y: -80.68652, z: 6.814372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1266929009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266929007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae4147437a7b9045a091a17f593875c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonWidth: 50
+  dungeonHeight: 50
+  corridorLength: 40
+  corridorWidth: 2
+  rooms: 2
+  pathLeadsToExit: 0
+  maxRoomSize: {x: 5, y: 5}
+  minRoomSize: {x: 3, y: 3}
+  startPoint: {x: 0, y: 1}
+  floorPrefab: {fileID: 1396359394914441769, guid: 28d102928b0752d458f85e08e959a925, type: 3}
+  wallPrefab: {fileID: 7844016741128256601, guid: 9eda48ec47cddaf48b27c36e93e1058f, type: 3}
+  controller: {fileID: 255328863}
+--- !u!1 &1639488473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639488474}
+  - component: {fileID: 1639488475}
+  m_Layer: 0
+  m_Name: BSP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639488474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639488473}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 51.285934, y: -69.583466, z: -31.898188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1639488475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639488473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab161bf224f5a484394c77e67e24d673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 100
+  height: 100
+  minRoomSize: 6
+  roomPrefab: {fileID: 1396359394914441769, guid: 28d102928b0752d458f85e08e959a925, type: 3}
+  corridorPrefab: {fileID: 7844016741128256601, guid: 9eda48ec47cddaf48b27c36e93e1058f, type: 3}
   controller: {fileID: 255328863}
 --- !u!1 &1836307453
 GameObject:
@@ -737,3 +899,6 @@ SceneRoots:
   - {fileID: 255328862}
   - {fileID: 2075609629}
   - {fileID: 1125025275}
+  - {fileID: 1639488474}
+  - {fileID: 95412061}
+  - {fileID: 1266929008}

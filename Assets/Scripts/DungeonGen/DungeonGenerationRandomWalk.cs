@@ -21,7 +21,7 @@ public class DungeonGenerationRandomWalk : MonoBehaviour
             Generate();
     }
 
-    public void Generate()
+    private void Generate()
     {
         bool[,] grid = new bool[width, height];
         Vector2Int position = new Vector2Int(width / 2, height / 2);

@@ -22,7 +22,7 @@ public class DungeonGenerationCellularAutomata : MonoBehaviour
             Generate();
     }
 
-    public void Generate()
+    private void Generate()
     {
         bool[,] grid = new bool[width, height];
         InitializeGrid(grid);
